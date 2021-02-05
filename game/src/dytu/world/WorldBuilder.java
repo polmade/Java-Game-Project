@@ -1,7 +1,9 @@
-package dytu.game;
+package dytu.world;
 
 import city.cs.engine.*;
 import city.cs.engine.Shape;
+import dytu.game.Covid;
+import dytu.game.Hero;
 import org.jbox2d.common.Vec2;
 
 import javax.swing.*;

@@ -1,7 +1,7 @@
 package dytu.game;
 
 import city.cs.engine.UserView;
-import city.cs.engine.World;
+import dytu.world.WorldBuilder;
 
 import javax.swing.*;
 import java.awt.*;

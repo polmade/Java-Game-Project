@@ -1,5 +1,7 @@
 package dytu.game;
 
+import dytu.world.WorldBuilder;
+
 import java.awt.*;
 
 public class drawStuff {

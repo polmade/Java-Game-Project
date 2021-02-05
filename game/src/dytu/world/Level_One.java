@@ -1,9 +1,10 @@
-package dytu.game;
+package dytu.world;
 
 import city.cs.engine.Body;
 import city.cs.engine.BoxShape;
 import city.cs.engine.Shape;
 import city.cs.engine.StaticBody;
+import dytu.game.HeroCollision;
 import org.jbox2d.common.Vec2;
 
 public class Level_One extends WorldBuilder {
