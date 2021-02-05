@@ -3,9 +3,7 @@ package dytu.game;
 import city.cs.engine.*;
 import city.cs.engine.Shape;
 
-import java.awt.*;
-
-public class Covid extends DynamicBody {
+public class covid extends DynamicBody {
     private int infectiousness = 50;
     private int selector;
 
@@ -24,10 +22,10 @@ public class Covid extends DynamicBody {
 
     //allow change of size of the shape as its health/infectiousness decreases
     public static void setRad(float rad) {
-        Covid.rad = rad;
+        covid.rad = rad;
     }
 
-    public Covid(World w, int mutator, int selector) {
+    public covid(World w, int mutator, int selector) {
         super(w, covidShape);
         System.out.println(this.selector);
         this.selector = selector;

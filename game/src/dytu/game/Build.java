@@ -22,7 +22,7 @@ public class Build {
 
         //start the view
         view = new GameView(theWorld, 500, 500);
-        view.addKeyListener(new KeyHandler(view, theWorld));
+        view.addKeyListener(new keyHandler(view, theWorld));
         //view.addStepListener(new stepListener(view, theWorld.getHero()));
         view.setFocusable(true);
 

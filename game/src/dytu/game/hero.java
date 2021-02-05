@@ -2,9 +2,10 @@ package dytu.game;
 
 import city.cs.engine.*;
 
-public class Hero extends Walker {
+public class hero extends Walker {
 
     private int health = 200;
+    private int points = 0;
 
     private static final Shape heroShape = new PolygonShape(
             0.12f,2.06f,
@@ -31,7 +32,7 @@ public class Hero extends Walker {
         }
     }
 
-    public Hero(World world) {
+    public hero(World world) {
         super(world, heroShape);
         addImage(image);
     }

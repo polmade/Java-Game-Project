@@ -6,14 +6,14 @@ import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 
 //A class to allow keyboard interactions
-public class KeyHandler implements KeyListener{
+public class keyHandler implements KeyListener{
     private GameView view;
     private WorldBuilder world;
 
     //sets the view that the keyboard listener should be attached to, and provide world details to allow keyboard interactions
     //this may have to changed later on, depending on whether extends works with this, but as yet, I don't know
     //from initial testing extends does work.
-    public KeyHandler(GameView view, WorldBuilder world){
+    public keyHandler(GameView view, WorldBuilder world){
         this.view = view;
         this.world = world;
     }
@@ -38,14 +38,16 @@ public class KeyHandler implements KeyListener{
         int key = e.getKeyCode();
         //check which directional key the user pressed, then do something
         if (key == KeyEvent.VK_LEFT){
-            System.out.println("Moving Left");
+            //System.out.println("Moving Left");
             world.velocityChangeHero(-4);
         }
         if (key == KeyEvent.VK_UP){
-            System.out.println("No Movement Allowed");
+            world.jumpHero(15);
+            world.getHero().setAngularVelocity(0.6f);
+            world.getHero().setAngularVelocity(0f);
         }
         if (key == KeyEvent.VK_RIGHT){
-            System.out.println("Moving Right");
+            //System.out.println("Moving Right");
             world.velocityChangeHero(4);
         }
         if (key == KeyEvent.VK_DOWN){
@@ -60,14 +62,14 @@ public class KeyHandler implements KeyListener{
         int key = e.getKeyCode();
         //check which directional key the user pressed, then do something
         if (key == KeyEvent.VK_LEFT){
-            System.out.println("Stopped Moving Left");
+            //System.out.println("Stopped Moving Left");
             world.velocityChangeHero(0);
         }
         if (key == KeyEvent.VK_UP){
             //System.out.println("No Movement Allowed");
         }
         if (key == KeyEvent.VK_RIGHT){
-            System.out.println("Stopped Moving Right");
+            //System.out.println("Stopped Moving Right");
             world.velocityChangeHero(0);
         }
         if (key == KeyEvent.VK_DOWN){

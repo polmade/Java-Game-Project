@@ -1,20 +1,18 @@
 package dytu.world;
 
 import city.cs.engine.*;
-import city.cs.engine.Shape;
-import dytu.game.Covid;
-import dytu.game.Hero;
-import org.jbox2d.common.Vec2;
-
-import javax.swing.*;
-import java.awt.*;
+import dytu.game.covid;
+import dytu.game.hero;
 
 public abstract class WorldBuilder extends World{
-    protected Hero hero = new Hero(this);
-    protected Covid monster = new Covid(this, 5, 1);
+    protected hero Hero = new hero(this);
+    protected covid monster = new covid(this, 5, 1);
+    protected BodyImage wallImage = new BodyImage("Data/wall.png", 5);
+    protected float[] hsbValues = new float[3];
+    protected float[] hsbValues2 = new float[3];
 
-    public Hero getHero() {
-        return hero;
+    public hero getHero() {
+        return Hero;
     }
 
 
@@ -25,6 +23,10 @@ public abstract class WorldBuilder extends World{
 
 
     public void velocityChangeHero(int a){
-        hero.startWalking(a);
+        Hero.startWalking(a);
+    }
+
+    public void jumpHero(float a){
+        Hero.jump(a);
     }
 }
