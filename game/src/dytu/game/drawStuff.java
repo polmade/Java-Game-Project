@@ -5,10 +5,10 @@ import dytu.world.WorldBuilder;
 import java.awt.*;
 
 public class drawStuff {
-    private dytu.game.hero hero;
+    private Hero hero;
     public WorldBuilder world;
 
-    drawStuff(dytu.game.hero hero){
+    drawStuff(Hero hero){
         this.hero = hero;
     }
 

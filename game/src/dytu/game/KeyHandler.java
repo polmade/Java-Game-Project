@@ -1,19 +1,20 @@
 package dytu.game;
 
+import city.cs.engine.World;
 import dytu.world.WorldBuilder;
 
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 
 //A class to allow keyboard interactions
-public class keyHandler implements KeyListener{
+public class KeyHandler implements KeyListener{
     private GameView view;
     private WorldBuilder world;
 
     //sets the view that the keyboard listener should be attached to, and provide world details to allow keyboard interactions
     //this may have to changed later on, depending on whether extends works with this, but as yet, I don't know
     //from initial testing extends does work.
-    public keyHandler(GameView view, WorldBuilder world){
+    public KeyHandler(GameView view, WorldBuilder world){
         this.view = view;
         this.world = world;
     }
@@ -40,6 +41,7 @@ public class keyHandler implements KeyListener{
         if (key == KeyEvent.VK_LEFT){
             //System.out.println("Moving Left");
             world.velocityChangeHero(-4);
+            world.getHero().setShapeSetter("heroShapeLeft");
         }
         if (key == KeyEvent.VK_UP){
             world.jumpHero(15);
@@ -49,6 +51,7 @@ public class keyHandler implements KeyListener{
         if (key == KeyEvent.VK_RIGHT){
             //System.out.println("Moving Right");
             world.velocityChangeHero(4);
+            world.getHero().setShapeSetter("heroShapeRight");
         }
         if (key == KeyEvent.VK_DOWN){
             System.out.println("No Movement Allowed");

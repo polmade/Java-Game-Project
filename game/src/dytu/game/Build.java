@@ -1,5 +1,6 @@
 package dytu.game;
 
+import city.cs.engine.DebugViewer;
 import dytu.world.Level_One;
 import dytu.world.WorldBuilder;
 
@@ -22,12 +23,14 @@ public class Build {
 
         //start the view
         view = new GameView(theWorld, 500, 500);
-        view.addKeyListener(new keyHandler(view, theWorld));
+        view.addKeyListener(new KeyHandler(view, theWorld));
+        view.addMouseListener(new MouseHandler(view, theWorld));
         //view.addStepListener(new stepListener(view, theWorld.getHero()));
         view.setFocusable(true);
 
         //add a stepListener to the world
-        theWorld.addStepListener(new stepListener(view, theWorld.getHero()));
+        theWorld.addStepListener(new StepListener(view, theWorld.getHero(), theWorld.getMonster()));
+        //theWorld.addStepListener(new stepListener(view, theWorld.getMonster()));
 
 
         //give the view a place to be
@@ -38,6 +41,9 @@ public class Build {
         frame.setLocationByPlatform(true);
         frame.pack();
         frame.setVisible(true);
+
+        //add a debug view, to allow for easy debugging
+        JFrame debugViewer = new DebugViewer(theWorld,500, 500);
 
 
 
