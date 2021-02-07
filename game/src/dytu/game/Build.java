@@ -8,16 +8,19 @@ import dytu.world.WorldBuilder;
 import javax.swing.*;
 
 public class Build {
+    //this is for later use, to implement a simple stage selection interface
     int Level = 0;
+
+
     //Initialise a world and view
     private WorldBuilder theWorld;
     private GameView view;
 
-    //constructor method to build a world
+
+    //constructor method
     public Build(){
         //make the world
         theWorld = new Level_One();
-        //theWorld = new Level_One();
 
 
 
@@ -29,9 +32,7 @@ public class Build {
         view.setFocusable(true);
 
         //add a stepListener to the world
-        theWorld.addStepListener(new StepListener(view, theWorld.getHero(), theWorld.getMonster()));
-        //theWorld.addStepListener(new stepListener(view, theWorld.getMonster()));
-
+        theWorld.addStepListener(new StepListener(view, theWorld.getHero(), theWorld.getMonster(), theWorld));
 
         //give the view a place to be
         final JFrame frame = new JFrame("The World");

@@ -15,11 +15,13 @@ public class CovidCollision implements CollisionListener {
         if (collisionEvent.getOtherBody() instanceof Hero){
             System.out.println("Collision detected with: "+collisionEvent.getOtherBody());
         } if (collisionEvent.getOtherBody() instanceof Syringe){
-            System.out.println(((Syringe) collisionEvent.getOtherBody()).getCollisionWithCovid());
-            ((Syringe) collisionEvent.getOtherBody()).setCollisionWithCovid(true);
-            System.out.println(((Syringe) collisionEvent.getOtherBody()).getCollisionWithCovid());
+            //change infectiousness of covid instance, and chek if covid instance has health of <=0 and then destroy if true
             covid.setInfectiousness(Syringe.getDamage());
+            collisionEvent.getOtherBody().destroy();
             System.out.println(covid.getInfectiousness());
+            if(covid.getInfectiousness()<=0){
+                covid.destroy();
+            }
             //System.out.println("Collision detected");
         }
     }

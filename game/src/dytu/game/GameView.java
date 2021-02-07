@@ -10,7 +10,6 @@ public class GameView extends UserView{
     private Image background;
     private WorldBuilder world;
 
-    //public addStepListener(WorldBuilder world, Hero hero){
 
     //create the view
     public GameView(WorldBuilder w, int width, int height) {
@@ -25,7 +24,9 @@ public class GameView extends UserView{
         g.drawImage(background, 0, 0, this);
     }
 
-    //allow drawing of statistics to foreground of the frame
+    /*allow drawing of statistics to foreground of the frame
+      currently draws health value as a string
+     */
     @Override
     protected void paintForeground(Graphics2D g) {
         g.setColor(Color.DARK_GRAY);
