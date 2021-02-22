@@ -13,7 +13,7 @@ public class Covid extends DynamicBody {
     private WorldBuilder world;
 
     //initialise the covid shape and image
-    private static float rad = 2f;
+    private static float rad = 2.0f;
     private static final Shape covidShape = new CircleShape(rad);
     //private BodyImage covidImage = new BodyImage("Data/covid"+this.selector+".png", 2*rad);
 
@@ -27,10 +27,11 @@ public class Covid extends DynamicBody {
         this.infectiousness = this.infectiousness - damage;
     }
 
-    /*allows you to get the radius of the covid instance
-      there are two methods, a float method and an int method
-      these are both in place to allow for points system
-      the getRadiusInt is used in the HeroCollision class, to allow for the hero's health to be changed based on the radius of the instance
+    /*
+    allows you to get the radius of the covid instance
+    there are two methods, a float method and an int method
+    these are both in place to allow for points system
+    the getRadiusInt is used in the HeroCollision class, to allow for the hero's health to be changed based on the radius of the instance
      */
     public float getRadius(){return rad;}
     public int getRadiusInt(){return (int) rad;}

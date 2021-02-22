@@ -1,15 +1,17 @@
 package dytu.game;
 
 import city.cs.engine.DebugViewer;
+import city.cs.engine.World;
 import dytu.world.Level_One;
+import dytu.world.Level_Two;
 import dytu.world.WorldBuilder;
-
+import java.util.Scanner;
 
 import javax.swing.*;
 
 public class Build {
     //this is for later use, to implement a simple stage selection interface
-    int Level = 0;
+    int level;
 
 
     //Initialise a world and view
@@ -17,12 +19,65 @@ public class Build {
     private GameView view;
 
 
+    public void levelSelect(int selection){
+        switch(selection){
+            case (0) -> {
+                if (theWorld != null){
+                    theWorld.getCovidList().clear();
+                    theWorld.stop();
+                    theWorld = new Level_One();
+                } else{
+                    theWorld = new Level_One();
+                } if (this.view == null){
+                    view = new GameView(theWorld, 500, 500);
+                    view.addKeyListener(new KeyHandler(view, theWorld));
+                    view.addMouseListener(new MouseHandler(view, theWorld));
+                    //view.addStepListener(new stepListener(view, theWorld.getHero()));
+                    view.setFocusable(true);
+                    JFrame debugViewer = new DebugViewer(theWorld,500, 500);
+                }else{
+                    view.setWorld(theWorld);
+                    MouseHandler mouseUpdate = (MouseHandler) view.getMouseListeners()[0];
+                    mouseUpdate.updateWorldAndView(this.view, this.theWorld);
+                    KeyHandler keyUpdate = (KeyHandler) view.getKeyListeners()[0];
+                    keyUpdate.updateWorldAndView(this.view, this.theWorld);
+                }
+                theWorld.start();
+            }
+            case (1) -> {
+                if (theWorld != null){
+                    theWorld.getCovidList().clear();
+                    theWorld.stop();
+                    theWorld = new Level_Two();
+                }else{
+                    theWorld = new Level_Two();
+                } if (this.view == null){
+                    view = new GameView(theWorld, 500, 500);
+                    view.addKeyListener(new KeyHandler(view, theWorld));
+                    view.addMouseListener(new MouseHandler(view, theWorld));
+                    //view.addStepListener(new stepListener(view, theWorld.getHero()));
+                    view.setFocusable(true);
+                }else{
+                    view.setWorld(theWorld);
+                    MouseHandler mouseUpdate = (MouseHandler) view.getMouseListeners()[0];
+                    mouseUpdate.updateWorldAndView(this.view, this.theWorld);
+                    KeyHandler keyUpdate = (KeyHandler) view.getKeyListeners()[0];
+                    keyUpdate.updateWorldAndView(this.view, this.theWorld);
+                }
+                theWorld.start();
+
+            }
+        }
+    }
+
     //constructor method
     public Build(){
-        //make the world
-        theWorld = new Level_One();
+        Scanner scan = new Scanner(System.in);
+        System.out.println("Select level:");
+        level = scan.nextInt();
+        levelSelect(level);
 
-
+        /*theWorld = new Level_One();
 
         //start the view
         view = new GameView(theWorld, 500, 500);
@@ -31,25 +86,32 @@ public class Build {
         //view.addStepListener(new stepListener(view, theWorld.getHero()));
         view.setFocusable(true);
 
+
+
+         */
         //add a stepListener to the world
         theWorld.addStepListener(new StepListener(view, theWorld.getHero(), theWorld.getMonster(), theWorld));
 
         //give the view a place to be
         final JFrame frame = new JFrame("The World");
-        frame.add(view);
+        frame.add(this.view);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setResizable(false);
         frame.setLocationByPlatform(true);
         frame.pack();
         frame.setVisible(true);
 
+
         //add a debug view, to allow for easy debugging
-        JFrame debugViewer = new DebugViewer(theWorld,500, 500);
+        //JFrame debugViewer = new DebugViewer(theWorld,500, 500);
 
 
 
         //start the world
         theWorld.start();
+
+
+
     }
 
     //where stuff happens

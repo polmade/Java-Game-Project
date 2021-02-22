@@ -1,13 +1,17 @@
 package dytu.world;
 
-import city.cs.engine.*;
+import city.cs.engine.Body;
+import city.cs.engine.BoxShape;
 import city.cs.engine.Shape;
-import dytu.game.*;
+import city.cs.engine.StaticBody;
+import dytu.game.Covid;
+import dytu.game.CovidCollision;
+import dytu.game.HeroCollision;
 import org.jbox2d.common.Vec2;
 
 import java.awt.*;
 
-public class Level_One extends WorldBuilder {
+public class Level_Two extends WorldBuilder {
     //a float array created using the java.awt.Color class, to set the colour of the floor block
     private float[] groundValues = Color.RGBtoHSB(60, 114, 16, hsbValues);
 
@@ -15,7 +19,7 @@ public class Level_One extends WorldBuilder {
     private int blockNo;
 
     //private float[] wallValues = Color.RGBtoHSB(170, 67, 72, hsbValues2);
-    public Level_One(){
+    public Level_Two(){
         super();
         // make the ground
         Shape groundShape = new BoxShape(25, 0.5f);
@@ -24,10 +28,12 @@ public class Level_One extends WorldBuilder {
         ground.setFillColor(new Color(groundValues[0], groundValues[1], groundValues[2]));
 
         // make the left boundary wall
-        Shape wallShape = new BoxShape(2, 9);
+        /*Shape wallShape = new BoxShape(2, 9);
         Body leftWall = new StaticBody(this, wallShape);
         leftWall.setPosition(new Vec2(-13, -3));
         leftWall.setFillColor(new Color(203,65,84));
+
+         */
 
         //create level
         Shape blockShape = new BoxShape(4, 0.5f);
@@ -79,7 +85,7 @@ public class Level_One extends WorldBuilder {
         blockPlaces.add(9, block10.getPosition());
 
         // make the characters
-        hero.setPosition(new Vec2(-8, -8));
+        hero.setPosition(new Vec2(-8, -10));
         HeroCollision colliderHero = new HeroCollision(hero);
         hero.addCollisionListener(colliderHero);
         monster = new Covid(this, 5, 2);
@@ -89,10 +95,8 @@ public class Level_One extends WorldBuilder {
         for(int i=0; i<blockPlaces.size()-1; i++){
             monster = new Covid(this, 4,1);
             CovidCollision colliderCovid = new CovidCollision(monster);
+            monster.setPosition(new Vec2(blockPlaces.get(i+1).x, blockPlaces.get(i+1).y + 2));
             monster.addCollisionListener(colliderCovid);
-            monster.setPosition(new Vec2(blockPlaces.get(i+1).x, blockPlaces.get(i+1).y + 4));
-
-            System.out.println(monster.getFixtureList());
             covidList.add(i, monster);
             //System.out.println();
         }

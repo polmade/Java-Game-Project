@@ -16,21 +16,21 @@ public abstract class WorldBuilder extends World{
     protected BodyImage wallImage = new BodyImage("Data/wall.png", 5);
     protected float[] hsbValues = new float[3];
     protected float[] hsbValues2 = new float[3];
-    protected List<Vec2> blockPlaces = new ArrayList<> ();
+    protected List<Vec2> blockPlaces = new ArrayList<>();
+    protected List<Covid> covidList = new ArrayList<Covid>();
 
 
     //getters and setters
     public Hero getHero() {
         return hero;
     }
-
     public void setHero(Hero hero){
         this.hero = hero;
     }
-
     public Covid getMonster() {
         return monster;
     }
+    public List getCovidList(){ return covidList; }
 
     //constructor
     public WorldBuilder() {

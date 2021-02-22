@@ -4,9 +4,11 @@ import city.cs.engine.CollisionEvent;
 import city.cs.engine.CollisionListener;
 import city.cs.engine.StaticBody;
 import org.jbox2d.common.Vec2;
+import city.cs.engine.StepEvent;
 
 public class HeroCollision implements CollisionListener {
     private Hero hero;
+
 
     public HeroCollision(Hero hero){
         this.hero = hero;

@@ -19,11 +19,15 @@ public class KeyHandler implements KeyListener{
         this.world = world;
     }
 
+    public void updateWorldAndView(GameView view, WorldBuilder world){
+        this.view = view;
+        this.world = world;
+    }
+
     @Override
     public void keyTyped(KeyEvent e){
         // set var key to the code of the key pressed
         char key = e.getKeyChar();
-
         //check for key type to display hero health
         if (key == 'h' || key == 'H'){
             System.out.println(world.getHero().getHealth());
@@ -31,8 +35,6 @@ public class KeyHandler implements KeyListener{
         if (key == 'x' || key == 'X'){
             world.getHero().setLookingForward(!(world.getHero().isLookingForward()));
         }
-
-
     }
 
     //This method will be the most used, and allows you to move bodies
@@ -74,7 +76,6 @@ public class KeyHandler implements KeyListener{
             world.getHero().getFixtureList().add(0, world.getHero().setFixtureShape("heroShapeRight"));
             world.velocityChangeHero(6);
             //this.view.setCentre(new Vec2(hero.getPosition().x,(hero.getPosition().y)+8f));
-
         }
     }
 

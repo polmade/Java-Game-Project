@@ -19,6 +19,11 @@ public class MouseHandler extends MouseAdapter {
         this.world = world;
     }
 
+    public void updateWorldAndView(GameView view, WorldBuilder world){
+        this.view = view;
+        this.world = world;
+    }
+
     public void mousePressed(MouseEvent e){
         //set the time of creation of the instance
         eventInitialTime = world.getSimulationSettings().getFrameCount();
