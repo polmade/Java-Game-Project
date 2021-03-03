@@ -2,10 +2,14 @@ package dytu.world;
 
 import city.cs.engine.*;
 import dytu.game.Covid;
+import dytu.game.GameView;
 import dytu.game.Hero;
 import org.jbox2d.common.Vec2;
 
+import javax.sound.sampled.LineUnavailableException;
+import javax.sound.sampled.UnsupportedAudioFileException;
 import javax.swing.event.ChangeListener;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -17,7 +21,22 @@ public abstract class WorldBuilder extends World{
     protected float[] hsbValues = new float[3];
     protected float[] hsbValues2 = new float[3];
     protected List<Vec2> blockPlaces = new ArrayList<>();
-    protected List<Covid> covidList = new ArrayList<Covid>();
+    protected List<Covid> covidList = new ArrayList<>();
+    protected GameView view;
+    protected static SoundClip levelSound;
+
+    static{
+        try{
+            levelSound = new SoundClip("Data/Sounds/push-ahead.wav"); /*please note that this sound was taken from https://opengameart.org/content/pushing-ahead at 18:13 1/3/21 */
+
+        }catch (UnsupportedAudioFileException | IOException | LineUnavailableException e){
+            System.out.println(e);
+        }
+    }
+
+    public void setView(GameView view) {
+        this.view = view;
+    }
 
 
     //getters and setters
@@ -30,7 +49,7 @@ public abstract class WorldBuilder extends World{
     public Covid getMonster() {
         return monster;
     }
-    public List getCovidList(){ return covidList; }
+    public List<Covid> getCovidList(){ return covidList; }
 
     //constructor
     public WorldBuilder() {
@@ -46,4 +65,6 @@ public abstract class WorldBuilder extends World{
     public void jumpHero(float a){
         hero.jump(a);
     }
+
+    public abstract int getLevelNo();
 }

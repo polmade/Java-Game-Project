@@ -12,6 +12,7 @@ public class KeyHandler implements KeyListener{
     private GameView view;
     private WorldBuilder world;
     protected Hero hero;
+    private static int count = 0;
 
     //sets the view that the keyboard listener should be attached to, and provide world details to allow keyboard interactions
     public KeyHandler(GameView view, WorldBuilder world){
@@ -55,6 +56,10 @@ public class KeyHandler implements KeyListener{
             world.getHero().getFixtureList().get(0).destroy();
             world.getHero().getFixtureList().add(0, world.getHero().setFixtureShape("heroShapeLeft"));
             world.velocityChangeHero(-6);
+            if(count < 1){
+                world.getHero().getWalkingSound().loop();
+                ++count;
+            }
             //this.view.setCentre(new Vec2(hero.getPosition().x,(hero.getPosition().y)+8f));
         }
         if (key == KeyEvent.VK_UP){
@@ -75,6 +80,10 @@ public class KeyHandler implements KeyListener{
             world.getHero().getFixtureList().get(0).destroy();
             world.getHero().getFixtureList().add(0, world.getHero().setFixtureShape("heroShapeRight"));
             world.velocityChangeHero(6);
+            if(count < 1){
+                world.getHero().getWalkingSound().loop();
+                ++count;
+            }
             //this.view.setCentre(new Vec2(hero.getPosition().x,(hero.getPosition().y)+8f));
         }
     }
@@ -88,6 +97,8 @@ public class KeyHandler implements KeyListener{
         if (key == KeyEvent.VK_LEFT){
             System.out.println("Stopped Moving Left");
             world.velocityChangeHero(0);
+            world.getHero().getWalkingSound().stop();
+            --count;
         }
         if (key == KeyEvent.VK_UP){
             System.out.println("Jumped");
@@ -95,6 +106,8 @@ public class KeyHandler implements KeyListener{
         if (key == KeyEvent.VK_RIGHT){
             System.out.println("Stopped Moving Right");
             world.velocityChangeHero(0);
+            world.getHero().getWalkingSound().stop();
+            --count;
         }
         if (key == KeyEvent.VK_DOWN){
             //System.out.println("No Movement Allowed");

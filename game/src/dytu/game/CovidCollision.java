@@ -2,11 +2,25 @@ package dytu.game;
 
 import city.cs.engine.CollisionEvent;
 import city.cs.engine.CollisionListener;
+import city.cs.engine.SoundClip;
 import city.cs.engine.StaticBody;
 import org.jbox2d.common.Vec2;
 
+import javax.sound.sampled.LineUnavailableException;
+import javax.sound.sampled.UnsupportedAudioFileException;
+import java.io.IOException;
+
 public class CovidCollision implements CollisionListener {
     private Covid covid;
+    private static SoundClip deathSound;
+
+    static {
+        try{
+            deathSound = new SoundClip("Data/Sounds/Coin01.wav"); /*please note that this was taken from https://opengameart.org/content/level-up-power-up-coin-get-13-sounds at 20:47 1/3/21, or pleas see wobbleboxx.com for more */
+        }catch(UnsupportedAudioFileException | IOException | LineUnavailableException e) {
+            System.out.println(e);
+        }
+    }
 
     public CovidCollision(Covid covid){
         this.covid = covid;
@@ -22,6 +36,8 @@ public class CovidCollision implements CollisionListener {
             collisionEvent.getOtherBody().destroy();
             System.out.println(covid.getInfectiousness());
             if(covid.getInfectiousness()<=0){
+                covid.getWorld().getHero().setPoints((int) (5*covid.getRadius()));
+                deathSound.play();
                 covid.destroy();
             }
             //System.out.println("Collision detected");

@@ -6,6 +6,7 @@ import city.cs.engine.Shape;
 import city.cs.engine.StaticBody;
 import dytu.game.Covid;
 import dytu.game.CovidCollision;
+import dytu.game.GameView;
 import dytu.game.HeroCollision;
 import org.jbox2d.common.Vec2;
 
@@ -18,9 +19,20 @@ public class Level_Two extends WorldBuilder {
     //for later use as a world oriented point system
     private int blockNo;
 
+    //an int to display level numbers in the view
+    private int levelNo = 2;
+
+    //get levelNo
+    @Override
+    public int getLevelNo(){
+        return levelNo;
+    }
+
     //private float[] wallValues = Color.RGBtoHSB(170, 67, 72, hsbValues2);
     public Level_Two(){
         super();
+        levelSound.setVolume(0.15);
+        levelSound.loop();
         // make the ground
         Shape groundShape = new BoxShape(25, 0.5f);
         Body ground = new StaticBody(this, groundShape);
@@ -86,7 +98,7 @@ public class Level_Two extends WorldBuilder {
 
         // make the characters
         hero.setPosition(new Vec2(-8, -10));
-        HeroCollision colliderHero = new HeroCollision(hero);
+        HeroCollision colliderHero = new HeroCollision(hero, this);
         hero.addCollisionListener(colliderHero);
         monster = new Covid(this, 5, 2);
         monster.setPosition(new Vec2(0, -10));

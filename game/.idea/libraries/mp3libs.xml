@@ -1,0 +1,10 @@
+<component name="libraryTable">
+  <library name="mp3libs">
+    <CLASSES>
+      <root url="file://$USER_HOME$/Documents/IN1007/mp3libs" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES />
+    <jarDirectory url="file://$USER_HOME$/Documents/IN1007/mp3libs" recursive="false" />
+  </library>
+</component>

@@ -14,9 +14,20 @@ public class Level_One extends WorldBuilder {
     //for later use as a world oriented point system
     private int blockNo;
 
+    //an int to display level numbers in the view
+    private int levelNo = 1;
+
+    //get levelNo
+    @Override
+    public int getLevelNo(){
+        return levelNo;
+    }
+
     //private float[] wallValues = Color.RGBtoHSB(170, 67, 72, hsbValues2);
     public Level_One(){
         super();
+        //levelSound.setVolume(0.15);
+        //levelSound.loop();
         // make the ground
         Shape groundShape = new BoxShape(25, 0.5f);
         Body ground = new StaticBody(this, groundShape);
@@ -80,7 +91,7 @@ public class Level_One extends WorldBuilder {
 
         // make the characters
         hero.setPosition(new Vec2(-8, -8));
-        HeroCollision colliderHero = new HeroCollision(hero);
+        HeroCollision colliderHero = new HeroCollision(hero, this);
         hero.addCollisionListener(colliderHero);
         monster = new Covid(this, 5, 2);
         monster.setPosition(new Vec2(0, -10));

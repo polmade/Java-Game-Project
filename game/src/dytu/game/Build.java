@@ -1,10 +1,8 @@
 package dytu.game;
 
-import city.cs.engine.DebugViewer;
-import city.cs.engine.World;
-import dytu.world.Level_One;
-import dytu.world.Level_Two;
 import dytu.world.WorldBuilder;
+
+import java.awt.*;
 import java.util.Scanner;
 
 import javax.swing.*;
@@ -14,11 +12,17 @@ public class Build {
     int level;
 
 
+
     //Initialise a world and view
     private WorldBuilder theWorld;
     private GameView view;
 
 
+
+    //inititalise GUI
+    private ControlForm controlForm = new ControlForm();
+
+    /*
     public void levelSelect(int selection){
         switch(selection){
             case (0) -> {
@@ -70,12 +74,24 @@ public class Build {
         }
     }
 
+     */
+
+    //initialise level selector & view selector class
+    private WorldChanger wc = new WorldChanger(theWorld/*, view*/);
+    private ViewChanger vc = new ViewChanger(theWorld, view);
+
+
+
     //constructor method
     public Build(){
         Scanner scan = new Scanner(System.in);
         System.out.println("Select level:");
         level = scan.nextInt();
-        levelSelect(level);
+        theWorld = wc.levelSelect(level);
+        vc.setWorld(theWorld);
+        view = vc.viewSelect(level);
+
+        controlForm.setViewAndWorld(this.theWorld, this.view);
 
         /*theWorld = new Level_One();
 
@@ -89,8 +105,7 @@ public class Build {
 
 
          */
-        //add a stepListener to the world
-        theWorld.addStepListener(new StepListener(view, theWorld.getHero(), theWorld.getMonster(), theWorld));
+
 
         //give the view a place to be
         final JFrame frame = new JFrame("The World");
@@ -98,6 +113,10 @@ public class Build {
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setResizable(false);
         frame.setLocationByPlatform(true);
+        //frame.setFocusable(false);
+
+        frame.add(controlForm.getMainPanel(), BorderLayout.EAST);
+        //view.requestFocusInWindow();
         frame.pack();
         frame.setVisible(true);
 
