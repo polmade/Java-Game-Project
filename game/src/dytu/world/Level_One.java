@@ -37,7 +37,7 @@ public class Level_One extends WorldBuilder {
 
         Body ground2 = new StaticBody(this, groundShape);
         ground2.setPosition(new Vec2(85, -11.5f));
-        ground2.setFillColor(new Color(groundValues[0], groundValues[1], groundValues[2]));
+        ground2.setFillColor(new Color(0, 154, 23));
 
         // make the left boundary wall
         Shape wallShape = new BoxShape(2, 9);
@@ -66,11 +66,17 @@ public class Level_One extends WorldBuilder {
         for(int i=0; i<blockPlaces.size(); i++){
             Body block;
             switch(i){
-                case (0), (1), (2), (3), (5), (7), (8) -> {
+                case (0), (1), (2), (3), (7), (8) -> {
                     block = new StaticBody(this, blockShape);
+                    block.setFillColor(new Color(13, 19, 33));
+                }
+                case (5) -> {
+                    block = new StaticBody(this, blockShape);
+                    block.setFillColor(new Color(0, 154, 23));
                 }
                 case (4), (6), (9) -> {
                     block = new StaticBody(this, blockShape2);
+                    block.setFillColor(new Color(13, 19, 33));
                 }
                 default -> throw new IllegalStateException("Unexpected value: " + i);
             }

@@ -68,9 +68,11 @@ public class Level_Three extends WorldBuilder {
             switch(i){
                 case (0), (1), (2) -> {
                     block = new StaticBody(this, blockShape);
+                    block.setFillColor(new Color(13, 19, 33));
                 }
                 case (3), (4), (5) -> {
                     block = new StaticBody(this, blockShape2);
+                    block.setFillColor(new Color(13, 19, 33));
                 }
                 default -> throw new IllegalStateException("Unexpected value: " + i);
             }
