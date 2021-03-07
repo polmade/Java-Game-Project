@@ -12,6 +12,7 @@ public class GameView extends UserView{
     //maybe try and figure out how to get it to just be 100
     protected static int healthWidth = 200;
     private Rectangle healthBar = new Rectangle(20, 25, healthWidth, 20);
+    private boolean isFinished = false;
 
     //getter and setter for width of health bar
     public void setHealthBarWidth(int width){
@@ -20,6 +21,15 @@ public class GameView extends UserView{
 
     public int getHealthBarWidth(){
         return healthBar.width;
+    }
+
+    //getter and setter for isFinished
+    public boolean isFinished() {
+        return isFinished;
+    }
+
+    public void setFinished(boolean finished) {
+        isFinished = finished;
     }
 
     //create the view
@@ -51,18 +61,27 @@ public class GameView extends UserView{
     @Override
     protected void paintForeground(Graphics2D g) {
         g.setColor(Color.DARK_GRAY);
-        g.drawString("Health: " + String.valueOf(world.getHero().getHealth()), 20, 20);
-        //g.drawString(String.valueOf((world.getHero().getHealth()/200)), 20, 30);
-        //double newWidth = (healthBar.width * ((world.getHero().getHealth())/200));
-        //g.drawString(String.valueOf((int)newWidth), 20, 30);
-        //healthBar.setRect(healthBar.x, healthBar.y, healthWidth, healthBar.height);
-        healthBar.width = healthWidth;
-        //g.drawString(String.valueOf(healthWidth), 20, 80);
-        //g.drawString(String.valueOf(healthBar.width), 20, 100);
-        g.draw(healthBar);
-        g.fill(healthBar);
-        g.drawString("Points: " + String.valueOf(world.getHero().getPoints()), 20, 60);
-        g.drawString("Level "+String.valueOf(world.getLevelNo()), 450, 20);
+        //draw the stats and health bar if not finished
+        if(isFinished == false){
+            g.drawString("Health: " + String.valueOf(world.getHero().getHealth()), 20, 20);
+            //g.drawString(String.valueOf((world.getHero().getHealth()/200)), 20, 30);
+            //double newWidth = (healthBar.width * ((world.getHero().getHealth())/200));
+            //g.drawString(String.valueOf((int)newWidth), 20, 30);
+            //healthBar.setRect(healthBar.x, healthBar.y, healthWidth, healthBar.height);
+            healthBar.width = healthWidth;
+            //g.drawString(String.valueOf(healthWidth), 20, 80);
+            //g.drawString(String.valueOf(healthBar.width), 20, 100);
+            g.draw(healthBar);
+            g.fill(healthBar);
+            g.drawString("Points: " + String.valueOf(world.getHero().getPoints()), 20, 60);
+            g.drawString("Level "+String.valueOf(world.getLevelNo()), 450, 20);
+        }
+        //draw a message saying the player has finished the game
+        else{
+            g.drawString("WELL DONE, YOU FINISHED THE GAME", 250, 250);
+        }
+
+
     }
 
 }

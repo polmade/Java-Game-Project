@@ -23,11 +23,9 @@ public class RestartListener implements ActionListener {
 
     @Override
     public void actionPerformed(ActionEvent e) {
-        /*world.getHero().setPosition(new Vec2(-8, -8));
-                view.setCentre(world.getHero().getPosition());
-
-                 */
-
+        /*
+        restart the world
+         */
         world = wc.levelSelect(1);
         vc.setWorld(world);
         vc.viewSelect(1);

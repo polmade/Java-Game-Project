@@ -1,6 +1,7 @@
 package dytu.game;
 
 import city.cs.engine.*;
+import dytu.world.WorldBuilder;
 import org.jbox2d.common.Vec2;
 import org.jbox2d.pooling.arrays.Vec2Array;
 
@@ -11,10 +12,10 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Hero extends Walker {
-    //declare and/or instaniate variables
+    //declare and/or instantiate variables
     private int health = 200;
     private static int points = 0;
-    private World world;
+    private WorldBuilder world;
     //lookingForward allows the stepListener to set the view centre
     private boolean lookingForward = false;
 
@@ -29,19 +30,33 @@ public class Hero extends Walker {
     private static BodyImage leftImage = new BodyImage("Data/edleft.png", 7.0f);
     private BodyImage image = rightImage;
 
+    //load the sounds for the hero character
     private static SoundClip walkingSound;
+    private static SoundClip deathSound;
+    private static SoundClip impactSound;
 
     static{
         try{
             walkingSound = new SoundClip("Data/Sounds/leaves02.wav"); /*please note that this sound was taken from https://opengameart.org/content/pushing-ahead at 18:13 1/3/21 */
-
+            deathSound = new SoundClip("Data/Sounds/death_jack_01.wav");/* please note that this sound was taken from https://opengameart.org/content/fps-placeholder-sounds at 02:00 7/3/21*/
+            impactSound = new SoundClip("Data/Sounds/bodyimpact_jack_01.wav");/*please note that this sound was taken from https://opengameart.org/content/fps-placeholder-sounds at 13:45 7/3/21*/
         }catch (UnsupportedAudioFileException | IOException | LineUnavailableException e){
             System.out.println(e);
         }
     }
 
+    //getters for the sounds
+
     public static SoundClip getWalkingSound() {
         return walkingSound;
+    }
+
+    public static SoundClip getDeathSound() {
+        return deathSound;
+    }
+
+    public static SoundClip getImpactSound() {
+        return impactSound;
     }
 
     //this allows the image attached to the body to be changed, depending on which way the body is now facing
@@ -96,7 +111,7 @@ public class Hero extends Walker {
         this.health = this.health - health;
     }
     //get the world that th character is in
-    public World getWorld(){
+    public WorldBuilder getWorld(){
         return world;
     }
     //get lookingForward
@@ -116,7 +131,7 @@ public class Hero extends Walker {
     }
 
 
-    public Hero(World world) {
+    public Hero(WorldBuilder world) {
         super(world, heroShapeRight);
         addImage(image);
 

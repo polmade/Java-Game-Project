@@ -19,5 +19,10 @@ public class SyringeCollision implements CollisionListener {
                 syringe.destroy();
             }
         }
+        //checks for collision with covidProjectiles, then updates the characters score
+        if(collisionEvent.getOtherBody() instanceof CovidProjectile){
+            syringe.getWorld().getHero().setPoints(3);
+            collisionEvent.getOtherBody().destroy();
+        }
     }
 }

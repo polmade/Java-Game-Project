@@ -17,7 +17,8 @@ public abstract class WorldBuilder extends World{
     //declare and/or instantiate variables for the world
     protected Hero hero = new Hero(this);
     protected Covid monster;
-    protected BodyImage wallImage = new BodyImage("Data/wall.png", 5);
+    protected BodyImage wallImage = new BodyImage("Data/wall1.png", 20);
+    protected BodyImage groundImage = new BodyImage("Data/ground4.png", 1);
     protected float[] hsbValues = new float[3];
     protected float[] hsbValues2 = new float[3];
     protected List<Vec2> blockPlaces = new ArrayList<>();
@@ -51,6 +52,10 @@ public abstract class WorldBuilder extends World{
     }
     public List<Covid> getCovidList(){ return covidList; }
 
+    public void setCovidList(int n){
+        covidList.remove(n);
+    }
+
     //constructor
     public WorldBuilder() {
         super();
@@ -64,6 +69,15 @@ public abstract class WorldBuilder extends World{
 
     public void jumpHero(float a){
         hero.jump(a);
+    }
+
+    public void cleanLevel(){
+        for(StaticBody body: this.getStaticBodies()){
+            body.destroy();
+        }
+        for(DynamicBody body: this.getDynamicBodies()){
+            body.destroy();
+        }
     }
 
     public abstract int getLevelNo();

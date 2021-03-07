@@ -13,6 +13,8 @@ public class ControlForm {
     private JButton pause;
     private JButton Play;
     private JButton Quit;
+    private JTextField nameInput;
+    private JButton submitName;
     private static WorldBuilder world;
     private static GameView view;
     private static int levelNo;
@@ -38,6 +40,14 @@ public class ControlForm {
     public ControlForm(/*WorldBuilder w, GameView view*/){
         /*this.world = w;
         this.view = view;*/
+        submitName.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                Build.setPlayerName(nameInput.getText());
+                //System.out.println(world.getHero().getName());
+                view.requestFocusInWindow();
+            }
+        });
 
         restart.addActionListener(new ActionListener() {
             @Override

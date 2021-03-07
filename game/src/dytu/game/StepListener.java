@@ -19,6 +19,7 @@ public class StepListener implements city.cs.engine.StepListener {
     private static List<StepListener> listenerCount = new ArrayList<>();
 
 
+    //getter and setters for the List of step listeners
     public static List<StepListener> getListenerCount() {
         return listenerCount;
     }
@@ -50,10 +51,7 @@ public class StepListener implements city.cs.engine.StepListener {
         }
         //System.out.println(this.hero.getPosition().y);
         //check health of both character and covid instances, and if <=0 destroy them
-        if (hero.getHealth() <= 0){
-            //Hero.setHealth(0);
-            hero.destroy();
-        } if (covid.getInfectiousness() <= 0){
+        if (covid.getInfectiousness() <= 0){
             covid.destroy();
         }
         for(int i=0; i<world.getCovidList().size()-1; i++){

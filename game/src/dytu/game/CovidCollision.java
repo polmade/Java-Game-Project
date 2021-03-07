@@ -14,6 +14,7 @@ public class CovidCollision implements CollisionListener {
     private Covid covid;
     private static SoundClip deathSound;
 
+    //load the sound to be played when the Covid object is destroyed
     static {
         try{
             deathSound = new SoundClip("Data/Sounds/Coin01.wav"); /*please note that this was taken from https://opengameart.org/content/level-up-power-up-coin-get-13-sounds at 20:47 1/3/21, or pleas see wobbleboxx.com for more */
@@ -35,7 +36,13 @@ public class CovidCollision implements CollisionListener {
             covid.setInfectiousness(Syringe.getDamage());
             collisionEvent.getOtherBody().destroy();
             System.out.println(covid.getInfectiousness());
+            //check if the infectiousness of the Covid object is less than 0
             if(covid.getInfectiousness()<=0){
+                //set the index of the Covid object within its List
+                for(int i=0; i<covid.getWorld().getCovidList().size(); i++){
+                    covid.setIndex(i);
+                }
+                covid.getWorld().setCovidList(covid.getIndex());
                 covid.getWorld().getHero().setPoints((int) (5*covid.getRadius()));
                 deathSound.play();
                 covid.destroy();

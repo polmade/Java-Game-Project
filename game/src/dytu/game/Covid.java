@@ -12,6 +12,17 @@ public class Covid extends DynamicBody {
     //tells you what world the instance is in
     private WorldBuilder world;
 
+    //too destory covid
+    private int index;
+
+    public void setIndex(int index) {
+        this.index = index;
+    }
+
+    public int getIndex() {
+        return index;
+    }
+
     //initialise the covid shape and image
     private static float rad = 2.0f;
     private static final Shape covidShape = new CircleShape(rad);

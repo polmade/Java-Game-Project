@@ -11,7 +11,18 @@ public class Build {
     //this is for later use, to implement a simple stage selection interface
     int level;
 
+    //player name
+    private static String playerName;
 
+    //set player name
+
+    public static void setPlayerName(String playerName) {
+        Build.playerName = playerName;
+    }
+
+    public static String getPlayerName() {
+        return playerName;
+    }
 
     //Initialise a world and view
     private WorldBuilder theWorld;
@@ -84,6 +95,7 @@ public class Build {
 
     //constructor method
     public Build(){
+        //take input for choosing level
         Scanner scan = new Scanner(System.in);
         System.out.println("Select level:");
         level = scan.nextInt();
@@ -114,7 +126,6 @@ public class Build {
         frame.setResizable(false);
         frame.setLocationByPlatform(true);
         //frame.setFocusable(false);
-
         frame.add(controlForm.getMainPanel(), BorderLayout.EAST);
         //view.requestFocusInWindow();
         frame.pack();
