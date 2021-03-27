@@ -5,23 +5,49 @@ import dytu.world.WorldBuilder;
 
 import javax.swing.*;
 
+/**
+ * Allows for the changing/setting of views
+ * @author dylantuckey
+ * @version 1
+ * @since 2021
+ * @see GameView
+ */
 public class ViewChanger {
     /*
     This class changes the view of the frame, and updates the world associated with the view
      */
+    /**
+     * The world passed to ViewChanger
+     */
     private WorldBuilder world;
+    /**
+     * The view to be selected
+     */
     private static GameView view;
     //private StepListener sL = new StepListener(view, world.getHero(), world.getMonster(), world);
 
+    /**
+     * Sets the world for the ViewChanger
+     * @param world
+     */
     public void setWorld(WorldBuilder world) {
         this.world = world;
     }
 
+    /**
+     * Changes the view
+     * <p>
+     *     Changes view, based on a given integer
+     * </p>
+     * @param selection
+     * @return The view to be seen
+     */
     public GameView viewSelect(int selection){
         switch(selection){
             case (0), (1), (2) -> {
                 if (view == null){
-                    view = new GameView(world, 500, 500);
+                    view = new GameView(world, 500, 500, true);
+                    view.updateBackground("data/background"+selection+".png");
                     view.addKeyListener(new KeyHandler(view, world));
                     view.addMouseListener(new MouseHandler(view, world));
                     //add a stepListener to the world
@@ -50,6 +76,11 @@ public class ViewChanger {
     }
 
     //set the state of the views finished boolean
+
+    /**
+     * Sets the boolean finished for the view
+     * @param finished
+     */
     public void setFinished(boolean finished){
         view.setFinished(finished);
     }
@@ -57,10 +88,27 @@ public class ViewChanger {
     /*
     constructor methods, with different options for use of view changer
      */
+
+    /**
+     * Constructor
+     * <p>
+     *     Takes both world and view
+     * </p>
+     * @param world
+     * @param v
+     */
     public ViewChanger(WorldBuilder world, GameView v){
         this.world = world;
         view = v;
     }
+
+    /**
+     * Constructor
+     * <p>
+     *     Takes only world
+     * </p>
+     * @param world
+     */
     public ViewChanger(WorldBuilder world){
         this.world = world;
     }

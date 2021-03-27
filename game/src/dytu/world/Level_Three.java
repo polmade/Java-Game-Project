@@ -4,9 +4,7 @@ import city.cs.engine.Body;
 import city.cs.engine.BoxShape;
 import city.cs.engine.Shape;
 import city.cs.engine.StaticBody;
-import dytu.game.Covid;
-import dytu.game.CovidCollision;
-import dytu.game.HeroCollision;
+import dytu.game.*;
 import org.jbox2d.common.Vec2;
 
 import java.awt.*;
@@ -29,9 +27,9 @@ public class Level_Three extends WorldBuilder {
     }
 
     //private float[] wallValues = Color.RGBtoHSB(170, 67, 72, hsbValues2);
-    public Level_Three(){
+    public Level_Three(boolean looking, boolean reload){
         super();
-        levelSound.setVolume(0.15);
+        levelSound.setVolume(soundLevel);
         levelSound.loop();
         // make the ground
         Shape groundShape = new BoxShape(85, 0.5f);
@@ -92,7 +90,15 @@ public class Level_Three extends WorldBuilder {
         }
 
         // make the characters
-        hero.setPosition(new Vec2(-8, -10));
+        if (looking) {
+            hero = new Hero(this, Hero.getRightState());
+        } else{
+            hero = new Hero(this, Hero.getLeftState());
+        }
+        if(reload){
+            placeCharHere = StateSaver.staticCharCoords;
+        }
+        hero.setPosition(placeCharHere);
         HeroCollision colliderHero = new HeroCollision(hero, this);
         hero.addCollisionListener(colliderHero);
         monster = new Covid(this, 5, 2);

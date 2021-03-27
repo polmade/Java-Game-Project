@@ -1,5 +1,6 @@
 package dytu.game;
 
+import dytu.overlay.OverlayGUI;
 import dytu.world.WorldBuilder;
 
 import java.awt.*;
@@ -10,6 +11,15 @@ import javax.swing.*;
 public class Build {
     //this is for later use, to implement a simple stage selection interface
     int level;
+
+    public static final JFrame frame = new JFrame("The World");
+    public static JDialog gui = new JDialog(frame, Dialog.ModalityType.MODELESS);
+
+    public static boolean firstFrame = true;
+
+    /*public static void makeNewFrame(){
+        frame = new JFrame("The World");
+    }*/
 
     //player name
     private static String playerName;
@@ -26,66 +36,29 @@ public class Build {
 
     //Initialise a world and view
     private WorldBuilder theWorld;
-    private GameView view;
+    private static GameView view;
 
 
-
-    //inititalise GUI
-    private ControlForm controlForm = new ControlForm();
-
-    /*
-    public void levelSelect(int selection){
-        switch(selection){
-            case (0) -> {
-                if (theWorld != null){
-                    theWorld.getCovidList().clear();
-                    theWorld.stop();
-                    theWorld = new Level_One();
-                } else{
-                    theWorld = new Level_One();
-                } if (this.view == null){
-                    view = new GameView(theWorld, 500, 500);
-                    view.addKeyListener(new KeyHandler(view, theWorld));
-                    view.addMouseListener(new MouseHandler(view, theWorld));
-                    //view.addStepListener(new stepListener(view, theWorld.getHero()));
-                    view.setFocusable(true);
-                    JFrame debugViewer = new DebugViewer(theWorld,500, 500);
-                }else{
-                    view.setWorld(theWorld);
-                    MouseHandler mouseUpdate = (MouseHandler) view.getMouseListeners()[0];
-                    mouseUpdate.updateWorldAndView(this.view, this.theWorld);
-                    KeyHandler keyUpdate = (KeyHandler) view.getKeyListeners()[0];
-                    keyUpdate.updateWorldAndView(this.view, this.theWorld);
-                }
-                theWorld.start();
-            }
-            case (1) -> {
-                if (theWorld != null){
-                    theWorld.getCovidList().clear();
-                    theWorld.stop();
-                    theWorld = new Level_Two();
-                }else{
-                    theWorld = new Level_Two();
-                } if (this.view == null){
-                    view = new GameView(theWorld, 500, 500);
-                    view.addKeyListener(new KeyHandler(view, theWorld));
-                    view.addMouseListener(new MouseHandler(view, theWorld));
-                    //view.addStepListener(new stepListener(view, theWorld.getHero()));
-                    view.setFocusable(true);
-                }else{
-                    view.setWorld(theWorld);
-                    MouseHandler mouseUpdate = (MouseHandler) view.getMouseListeners()[0];
-                    mouseUpdate.updateWorldAndView(this.view, this.theWorld);
-                    KeyHandler keyUpdate = (KeyHandler) view.getKeyListeners()[0];
-                    keyUpdate.updateWorldAndView(this.view, this.theWorld);
-                }
-                theWorld.start();
-
-            }
-        }
+    //getters and setters for world and view
+    public WorldBuilder getTheWorld(){
+        return theWorld;
     }
 
-     */
+    public void setTheWorld(WorldBuilder theWorld) {
+        this.theWorld = theWorld;
+    }
+
+    public GameView getView() {
+        return view;
+    }
+
+    public void setView(GameView view) {
+        this.view = view;
+    }
+
+    //inititalise GUI
+    private static ControlForm controlForm = new ControlForm();
+    //private static OverlayGUI oGUI = new OverlayGUI();
 
     //initialise level selector & view selector class
     private WorldChanger wc = new WorldChanger(theWorld/*, view*/);
@@ -102,47 +75,46 @@ public class Build {
         theWorld = wc.levelSelect(level);
         vc.setWorld(theWorld);
         view = vc.viewSelect(level);
-
         controlForm.setViewAndWorld(this.theWorld, this.view);
+        normalOp(this.view);
+        //add a debug view, to allow for easy debugging
+        //JFrame debugViewer = new DebugViewer(theWorld,500, 500);
 
-        /*theWorld = new Level_One();
+        //start the world
+        theWorld.start();
+    }
 
-        //start the view
-        view = new GameView(theWorld, 500, 500);
-        view.addKeyListener(new KeyHandler(view, theWorld));
-        view.addMouseListener(new MouseHandler(view, theWorld));
-        //view.addStepListener(new stepListener(view, theWorld.getHero()));
-        view.setFocusable(true);
-
-
-
-         */
-
-
-        //give the view a place to be
-        final JFrame frame = new JFrame("The World");
-        frame.add(this.view);
+    //allows for frame to have its view set
+    public static void normalOp(GameView toView){
+        if(!firstFrame){
+            frame.remove(view);
+        }
+        frame.add(toView);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setResizable(false);
-        frame.setLocationByPlatform(true);
+        //frame.setLocationByPlatform(true);
         //frame.setFocusable(false);
         frame.add(controlForm.getMainPanel(), BorderLayout.EAST);
         //view.requestFocusInWindow();
         frame.pack();
         frame.setVisible(true);
-
-
-        //add a debug view, to allow for easy debugging
-        //JFrame debugViewer = new DebugViewer(theWorld,500, 500);
-
-
-
-        //start the world
-        theWorld.start();
-
-
-
     }
+
+    //create the ability to make a dialog, as a main menu
+    public static void mainGUI(OverlayGUI comp){
+        gui.add(comp.getMainPanel());
+        gui.pack();
+        gui.setVisible(true);
+        view.requestFocusInWindow();
+
+        //frame.add(gui.getContentPane());
+        /*frame.setContentPane(comp.getMainPanel());
+        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        frame.setResizable(false);
+        frame.pack();
+        frame.setVisible(true);*/
+    }
+
 
     //where stuff happens
     public static void main(String[] args) {

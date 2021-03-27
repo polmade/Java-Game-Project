@@ -12,6 +12,10 @@ public class CovidProjectileCollision implements CollisionListener {
         this.covProj = covProj;
     }
 
+    /*
+    defines what happens upon collision with hero objects, and instances of StaticBody
+    StaticBody check is used to remove them from the world once they have touched a static body, or are too old
+     */
     @Override
     public void collide(CollisionEvent collisionEvent) {
         if(collisionEvent.getOtherBody() instanceof Hero){

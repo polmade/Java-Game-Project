@@ -19,9 +19,36 @@ public class Hero extends Walker {
     //lookingForward allows the stepListener to set the view centre
     private boolean lookingForward = false;
 
+    //declare an enum called state that will house what the hero character will do upon spawning
+    private enum State{
+        LOOK_LEFT, LOOK_RIGHT
+    }
+
+    //declare getter for each state
+    //this is super hacky, probably shouldn't be done but so far the only conceivable way of doing this i've found
+     public static State getRightState(){
+        return State.LOOK_RIGHT;
+     }
+    public static State getLeftState(){
+        return State.LOOK_LEFT;
+    }
+
     //define the different shapes for fixtures to be attached to the body
     private static final Shape heroShapeLeft = new PolygonShape(-0.65f,3.44f, -2f,-1.20f, -2.04f,-3.46f, 2.69f,-3.46f, 2.71f,3.47f);
     private static final Shape heroShapeRight = new PolygonShape(0.65f,3.44f, 2.67f,-1.13f, 2.04f,-3.46f, -2.69f,-3.46f, -2.71f,3.47f);
+
+    //define function to set shapes for call with state
+    private static Shape superShape(State state){
+        switch (state){
+            case LOOK_LEFT -> {
+                return heroShapeLeft;
+            }
+            case LOOK_RIGHT -> {
+                return heroShapeRight;
+            }
+        }
+        return null;
+    }
 
     /* This needs work, however, the premise of this segment of code is to change the direction of the player character upon key press.
     It's implemented through the keyHandler class
@@ -135,6 +162,19 @@ public class Hero extends Walker {
         super(world, heroShapeRight);
         addImage(image);
 
+        this.world = world;
+    }
+
+    public Hero(WorldBuilder world, State state){
+        super(world, superShape(state));
+        switch(state){
+            case LOOK_LEFT -> {
+                addImage(leftImage);
+            }
+            case LOOK_RIGHT -> {
+                addImage(rightImage);
+            }
+        }
         this.world = world;
     }
 }

@@ -23,10 +23,15 @@ public class Level_One extends WorldBuilder {
         return levelNo;
     }
 
+    {
+        levelSound.setVolume(soundLevel);
+    }
+
+
     //private float[] wallValues = Color.RGBtoHSB(170, 67, 72, hsbValues2);
-    public Level_One(){
+    public Level_One(boolean looking, boolean reload){
         super();
-        levelSound.setVolume(0.15);
+
         levelSound.loop();
         // make the ground
         Shape groundShape = new BoxShape(25, 0.5f);
@@ -88,7 +93,15 @@ public class Level_One extends WorldBuilder {
         }
 
         // make the characters
-        hero.setPosition(new Vec2(-8, -8));
+        if (looking) {
+            hero = new Hero(this, Hero.getRightState());
+        } else{
+            hero = new Hero(this, Hero.getLeftState());
+        }
+        if(reload){
+            placeCharHere = StateSaver.staticCharCoords;
+        }
+        hero.setPosition(placeCharHere);
         HeroCollision colliderHero = new HeroCollision(hero, this);
         hero.addCollisionListener(colliderHero);
         monster = new Covid(this, 5, 2);

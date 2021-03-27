@@ -12,6 +12,7 @@ public class SyringeCollision implements CollisionListener {
     }
 
     //checks if, upon collision with a static body, the syringe is too old, and, if true, removes the syringe
+    //also checks if it has collided with a covid projectile, and if so, removes the projectile, and increments the players score by 3
     @Override
     public void collide(CollisionEvent collisionEvent) {
         if(collisionEvent.getOtherBody() instanceof StaticBody){

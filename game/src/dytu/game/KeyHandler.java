@@ -1,9 +1,11 @@
 package dytu.game;
 
 import city.cs.engine.World;
+import dytu.overlay.OverlayGUI;
 import dytu.world.WorldBuilder;
 import org.jbox2d.common.Vec2;
 
+import java.awt.*;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 
@@ -13,13 +15,14 @@ public class KeyHandler implements KeyListener{
     private WorldBuilder world;
     protected Hero hero;
     private static int count = 0;
+    private boolean showGUI = false;
 
     //sets the view that the keyboard listener should be attached to, and provide world details to allow keyboard interactions
     public KeyHandler(GameView view, WorldBuilder world){
         this.view = view;
         this.world = world;
     }
-
+    //updates the view and the world
     public void updateWorldAndView(GameView view, WorldBuilder world){
         this.view = view;
         this.world = world;
@@ -85,6 +88,19 @@ public class KeyHandler implements KeyListener{
                 ++count;
             }
             //this.view.setCentre(new Vec2(hero.getPosition().x,(hero.getPosition().y)+8f));
+        }
+        if (key==KeyEvent.VK_SPACE){
+            OverlayGUI oGui = new OverlayGUI();
+            oGui.setViewAndWorld(world, view);
+            if(showGUI){
+                Build.mainGUI(oGui);
+            }else{
+                Build.gui.setVisible(false);
+            }
+
+            showGUI = !showGUI;
+            //Build.frame.add(oGui.getMainPanel(), BorderLayout.WEST);
+
         }
     }
 

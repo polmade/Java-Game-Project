@@ -22,7 +22,6 @@ public class HeroCollision implements CollisionListener {
     public HeroCollision(Hero hero, WorldBuilder world){
         this.hero = hero;
         this.world = world;
-
     }
 
     @Override

@@ -2,6 +2,7 @@ package dytu.game;
 
 import city.cs.engine.StepEvent;
 import city.cs.engine.World;
+import dytu.overlay.OverlayGUI;
 import org.jbox2d.common.Vec2;
 import java.lang.Math;
 import java.util.ArrayList;
@@ -42,6 +43,7 @@ public class StepListener implements city.cs.engine.StepListener {
     }
     @Override
     public void postStep(StepEvent e) {
+        world.setSoundLevel(OverlayGUI.getSoundLevelInt()/100);
         Covid testCovid;
         //set view centre for the world, based on position of hero character and if it should be looking forward
         if(hero.isLookingForward() == false){
@@ -54,6 +56,7 @@ public class StepListener implements city.cs.engine.StepListener {
         if (covid.getInfectiousness() <= 0){
             covid.destroy();
         }
+        //for every covid in the world, check if it is within a given range of the hero character, and if it is create a projectile aimed towards the hero character
         for(int i=0; i<world.getCovidList().size()-1; i++){
             testCovid = (Covid) world.getCovidList().get(i);
             double xLen = testCovid.getPosition().x - hero.getPosition().x;

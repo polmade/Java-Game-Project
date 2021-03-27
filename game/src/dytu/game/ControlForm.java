@@ -37,33 +37,27 @@ public class ControlForm {
         levelNo = this.world.getLevelNo();
     }
 
-    public ControlForm(/*WorldBuilder w, GameView view*/){
-        /*this.world = w;
-        this.view = view;*/
+    public ControlForm(){
+        //checks for input in the JTextField nameInput, once activated, and sets the name to be the input in the JTextField
         submitName.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 Build.setPlayerName(nameInput.getText());
-                //System.out.println(world.getHero().getName());
                 view.requestFocusInWindow();
             }
         });
 
+        //checks for activation of the restart JButton, and then resets the world
         restart.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                //setLevelNo();
                 world = wc.levelSelect(levelNo - 1);
                 vc.setWorld(world);
                 vc.viewSelect(levelNo - 1);
-
-                //view.addKeyListener(new KeyHandler(view, world));
-                //world.getHero().setPosition(new Vec2(-8, -8));
-                //view.setCentre(world.getHero().getPosition());
-                //restart.setFocusPainted(false);
                 view.requestFocusInWindow();
             }
         });
+        //pauses the world
         pause.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -72,6 +66,7 @@ public class ControlForm {
                 view.requestFocusInWindow();
             }
         });
+        //restarts the world
         Play.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -80,6 +75,7 @@ public class ControlForm {
                 view.requestFocusInWindow();
             }
         });
+        //quits the game
         Quit.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {

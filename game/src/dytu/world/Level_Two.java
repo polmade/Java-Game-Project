@@ -4,10 +4,7 @@ import city.cs.engine.Body;
 import city.cs.engine.BoxShape;
 import city.cs.engine.Shape;
 import city.cs.engine.StaticBody;
-import dytu.game.Covid;
-import dytu.game.CovidCollision;
-import dytu.game.GameView;
-import dytu.game.HeroCollision;
+import dytu.game.*;
 import org.jbox2d.common.Vec2;
 
 import java.awt.*;
@@ -30,9 +27,9 @@ public class Level_Two extends WorldBuilder {
     }
 
     //private float[] wallValues = Color.RGBtoHSB(170, 67, 72, hsbValues2);
-    public Level_Two(){
+    public Level_Two(boolean looking, boolean reload){
         super();
-        levelSound.setVolume(0.15);
+        levelSound.setVolume(soundLevel);
         levelSound.loop();
         // make the ground
         Shape groundShape = new BoxShape(85, 0.5f);
@@ -52,38 +49,18 @@ public class Level_Two extends WorldBuilder {
         Shape blockShape = new BoxShape(4, 0.5f);
         Shape blockShape2 = new BoxShape(7, 0.5f);
 
-
-        //Body block1 = new StaticBody(this, blockShape);
-        //block1.setPosition();
         blockPlaces.add(0, new Vec2(4, -5f));
-
-        //Body block2 = new StaticBody(this, blockShape);
-        //block2.setPosition();
         blockPlaces.add(1, new Vec2(16, 5f));
-
-        //Body block3 = new StaticBody(this, blockShape);
-        //block3.setPosition();
         blockPlaces.add(2, new Vec2(0, 14f));
-
-        //Body block4 = new StaticBody(this, blockShape2);
-        //block4.setPosition();
         blockPlaces.add(3, new Vec2(36, 11));
 
 
         //Body block5 = new StaticBody(this, blockShape2);
         //block5.setPosition(new Vec2(58, 6));
         //blockPlaces.add(4, block5.getPosition());
-
-        //Body block6 = new StaticBody(this, blockShape2);
-        //block6.setPosition();
         blockPlaces.add(4, new Vec2(58, 8));
 
-        //Body block7 = new StaticBody(this, blockShape2);
-        //block7.setPosition();
         blockPlaces.add(5, new Vec2(85, 2));
-
-        //Body block8 = new StaticBody(this, blockShape);
-        //block8.setPosition();
         blockPlaces.add(6, new Vec2(99, 10));
 
         /*
@@ -128,7 +105,15 @@ public class Level_Two extends WorldBuilder {
 
 
         // make the characters
-        hero.setPosition(new Vec2(-8, -10));
+        if (looking) {
+            hero = new Hero(this, Hero.getRightState());
+        } else{
+            hero = new Hero(this, Hero.getLeftState());
+        }
+        if(reload){
+            placeCharHere = StateSaver.staticCharCoords;
+        }
+        hero.setPosition(placeCharHere);
         HeroCollision colliderHero = new HeroCollision(hero, this);
         hero.addCollisionListener(colliderHero);
         monster = new Covid(this, 5, 2);

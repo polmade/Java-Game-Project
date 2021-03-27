@@ -57,6 +57,7 @@ public class Covid extends DynamicBody {
         Covid.rad = rad;
     }
 
+    //constructor method for enemy
     public Covid(WorldBuilder w, int mutator, int selector) {
         super(w, covidShape);
         this.world = w;

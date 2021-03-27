@@ -27,6 +27,9 @@ public class CovidCollision implements CollisionListener {
         this.covid = covid;
     }
 
+    /*
+    defines what happens upon collision with hero objects, and syringe objects
+     */
     @Override
     public void collide(CollisionEvent collisionEvent) {
         if (collisionEvent.getOtherBody() instanceof Hero){
